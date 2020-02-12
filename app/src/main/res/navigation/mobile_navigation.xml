@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.asligresik.absensi.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_cuti"
+        android:name="com.asligresik.absensi.ui.submission.cuti.CutiFragment"
+        android:label="@string/menu_cuti">
+        <action
+            android:id="@+id/action_nav_cuti_to_formCutiFragment"
+            app:destination="@id/formCutiFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/formCutiFragment"
+        android:name="com.asligresik.absensi.ui.submission.cuti.FormCutiFragment"
+        android:label="fragment_form_cuti"
+         />
+    <fragment
+        android:id="@+id/nav_dinas"
+        android:name="com.asligresik.absensi.ui.submission.cuti.DinasFragment"
+        android:label="DinasFragment" >
+        <action
+            android:id="@+id/action_dinasFragment_to_formDinasFragment"
+            app:destination="@id/formDinasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formDinasFragment"
+        android:name="com.asligresik.absensi.ui.submission.cuti.FormDinasFragment"
+        android:label="FormDinasFragment" />
+    <fragment
+        android:id="@+id/nav_ijin"
+        android:name="com.asligresik.absensi.ui.submission.ijin.IjinFragment"
+        android:label="IjinFragment" >
+        <action
+            android:id="@+id/action_ijinFragment_to_formIjinFragment"
+            app:destination="@id/formIjinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formIjinFragment"
+        android:name="com.asligresik.absensi.ui.submission.ijin.FormIjinFragment"
+        android:label="FormIjinFragment" />
+    <fragment
+        android:id="@+id/nav_sakit"
+        android:name="com.asligresik.absensi.ui.submission.sakit.SakitFragment"
+        android:label="SakitFragment" >
+        <action
+            android:id="@+id/action_sakitFragment_to_formSakitFragment"
+            app:destination="@id/formSakitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formSakitFragment"
+        android:name="com.asligresik.absensi.ui.submission.sakit.FormSakitFragment"
+        android:label="FormSakitFragment" />
+</navigation>
