@@ -1,7 +1,9 @@
 package com.asligresik.absensi.adapters
 
+import android.util.SparseIntArray
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asligresik.absensi.R
@@ -11,7 +13,9 @@ import kotlinx.android.synthetic.main.item_submission.view.*
 class SubmissionAdapter : RecyclerView.Adapter<SubmissionAdapter.viewHolder>() {
     private var onItemClickCallback: OnItemClickCallback? = null
     private var listSubmission: List<Submission> = ArrayList<Submission>()
-
+    /* state 0 for rejected, 1 for approved, 2 for processing */
+    internal var processingItemState = HashMap<Int, Int>()
+    var canApprove = false
     fun setDatas(listSubmission: List<Submission>) {
         this.listSubmission = listSubmission
         notifyDataSetChanged()
@@ -19,6 +23,18 @@ class SubmissionAdapter : RecyclerView.Adapter<SubmissionAdapter.viewHolder>() {
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
+    }
+
+    fun setItemProcessing(itemProcessing: HashMap<Int, Int>){
+        processingItemState = itemProcessing
+        itemProcessing.map<Int, Int, Unit> {
+            listSubmission.get(it.key).status =
+            when(it.value){
+                0 -> 'V'
+                else -> 'A'
+            }
+            notifyItemChanged(it.key)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
@@ -38,11 +54,31 @@ class SubmissionAdapter : RecyclerView.Adapter<SubmissionAdapter.viewHolder>() {
         fun bind(submission: Submission, position: Int) {
             with(itemView) {
                 tvTitle.text = submission.number
+                var _isActive: Boolean = submission.status!!.equals('N',true)
                 val description = """
                     Periode ${submission.startDate} sd ${submission.endDate}
                     ${submission.description} 
                 """.trimIndent()
                 tvDescription.text = description
+                if(canApprove){
+                    if(_isActive){
+                        itemView.blockApproval.visibility = VISIBLE
+                        itemView.btnApprove.setOnClickListener {
+                            onItemClickCallback?.onApproveBtnClick(submission, position)
+                        }
+                        itemView.btnReject.setOnClickListener {
+                            onItemClickCallback?.onRejectBtnClick(submission, position)
+                        }
+                    }
+                }
+
+                if(!_isActive){
+                    itemView.imgStatus.visibility = View.VISIBLE
+                    when(submission.status){
+                        'A' -> itemView.imgStatus.setImageResource(R.drawable.approved)
+                        else -> itemView.imgStatus.setImageResource(R.drawable.rejected)
+                    }
+                }
                 /*Glide.with(itemView.context)
                     .load(Constant.PATH_POSTER + "/w185" + submission.posterPath)
                     .apply(RequestOptions().override(300, 300))
@@ -63,7 +99,7 @@ class SubmissionAdapter : RecyclerView.Adapter<SubmissionAdapter.viewHolder>() {
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(submission: Submission)
-        //fun onFavoriteClick(submission: Submission, position: Int)
+        fun onApproveBtnClick(submission: Submission, position: Int)
+        fun onRejectBtnClick(submission: Submission, position: Int)
     }
 }

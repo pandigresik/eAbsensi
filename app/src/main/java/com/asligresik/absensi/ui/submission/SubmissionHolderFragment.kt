@@ -20,8 +20,8 @@ import kotlinx.android.synthetic.main.fragment_recycleview.*
  * A placeholder fragment containing a simple view.
  */
 open class SubmissionHolderFragment : Fragment() {
-    private var sectionNumber : Int = 1
-    private val listSubmissionAdapter = SubmissionAdapter()
+    protected var sectionNumber : Int = 1
+    protected val listSubmissionAdapter = SubmissionAdapter()
     internal lateinit var submissionViewModel: SubmissionViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +63,7 @@ open class SubmissionHolderFragment : Fragment() {
                 })
             }
             2 -> {
-                submissionViewModel.loadData("All")
+                submissionViewModel.loadData("History")
                 submissionViewModel.listSubmission.observe(this, Observer{
                     if(it.submission != null){
                         listSubmissionAdapter.setDatas(it.submission)
@@ -77,15 +77,10 @@ open class SubmissionHolderFragment : Fragment() {
         outState.putInt(ARG_SECTION_NUMBER, sectionNumber)
     }
 
-    private fun showRecyclerList(){
+    protected open fun showRecyclerList(){
         rvSubmissionList.layoutManager = LinearLayoutManager(context)
         rvSubmissionList.setHasFixedSize(true)
         rvSubmissionList.adapter = listSubmissionAdapter
-        listSubmissionAdapter.setOnItemClickCallback(object : SubmissionAdapter.OnItemClickCallback{
-            override fun onItemClicked(Submission: Submission) {
-            //    details(Submission)
-            }
-        })
     }
     companion object {
         /**
@@ -108,7 +103,7 @@ open class SubmissionHolderFragment : Fragment() {
         }
     }
 
-    private fun showLoading(state: Boolean){
+    protected fun showLoading(state: Boolean){
         if(state) {
             progressBar.visibility = View.VISIBLE
         }else{

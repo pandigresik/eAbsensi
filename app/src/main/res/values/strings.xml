@@ -37,4 +37,5 @@
     <string name="nomer_pengajuan">Nomer Pengajuan</string>
     <string name="approve">Approve</string>
     <string name="reject">Reject</string>
+    <string name="reason">Alasan</string>
 </resources>

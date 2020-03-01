@@ -12,7 +12,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 open class SubmissionViewModel(private val submissionRepository: SubmissionRepository) : ViewModel() {
-    private var submissionJob: Job? = null
+    protected var submissionJob: Job? = null
     private val _submissionForm = MutableLiveData<SubmissionFormState>()
     val submissionFormState: LiveData<SubmissionFormState> = _submissionForm
     val loading = MutableLiveData<Boolean>()

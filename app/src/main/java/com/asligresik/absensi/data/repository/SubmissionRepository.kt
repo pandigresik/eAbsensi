@@ -14,15 +14,16 @@ class SubmissionRepository(val dataSource: SubmissionDataSource){
     suspend fun create(startDate: String, endDate: String, description: String, type: String): Result<Submission> {
         // handle login
         val result = dataSource.create(startDate, endDate, description,type)
-        if (result is Result.Success) {
+        return result
+    }
 
-        }
+    suspend fun approveReject(id: Int, statusApproval: String, reason: String): Result<Submission>{
+        val result = dataSource.approveReject(id, statusApproval, reason)
         return result
     }
 
     suspend fun loadData(status: String, type: String): Result<List<Submission>> {
         val result = dataSource.loadData(status, type)
-        //Log.e("loadData submission", result.toString())
         if (result is Result.Success) {
 
         }

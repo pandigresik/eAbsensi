@@ -61,4 +61,8 @@
         android:id="@+id/formSakitFragment"
         android:name="com.asligresik.absensi.ui.submission.sakit.FormSakitFragment"
         android:label="FormSakitFragment" />
+    <fragment
+        android:id="@+id/nav_approval"
+        android:name="com.asligresik.absensi.ui.submission.approval.ApprovalFragment"
+        android:label="ApprovalFragment" />
 </navigation>

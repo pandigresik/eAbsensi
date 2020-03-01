@@ -3,6 +3,7 @@ package com.asligresik.absensi.ui.submission
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.asligresik.absensi.data.repository.SubmissionRepository
+import com.asligresik.absensi.ui.submission.approval.ApprovalViewModel
 import com.asligresik.absensi.ui.submission.cuti.CutiViewModel
 import com.asligresik.absensi.ui.submission.cuti.DinasViewModel
 import com.asligresik.absensi.ui.submission.ijin.IjinViewModel
@@ -38,6 +39,11 @@ class SubmissionViewModelFactory(private val submissionRepository: SubmissionRep
         }
         if (modelClass.isAssignableFrom(SubmissionViewModel::class.java)) {
             return SubmissionViewModel(
+                submissionRepository
+            ) as T
+        }
+        if (modelClass.isAssignableFrom(ApprovalViewModel::class.java)) {
+            return ApprovalViewModel(
                 submissionRepository
             ) as T
         }
