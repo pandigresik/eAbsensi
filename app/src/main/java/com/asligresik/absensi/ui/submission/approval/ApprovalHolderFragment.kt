@@ -2,6 +2,7 @@ package com.asligresik.absensi.ui.submission.approval
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
@@ -25,7 +26,7 @@ import java.text.FieldPosition
 class ApprovalHolderFragment : SubmissionHolderFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         showRecyclerList()
-        submissionViewModel.loading.observe(this, Observer { it ->
+        (submissionViewModel as ApprovalViewModel).loading.observe(this, Observer { it ->
             showLoading(it)
         })
         when (sectionNumber) {
@@ -50,7 +51,8 @@ class ApprovalHolderFragment : SubmissionHolderFragment() {
         }
 
         (submissionViewModel as ApprovalViewModel).processingItemState.observe(this, Observer {
-            if (it != null) {
+            Log.e("processingItemStateh",it.toString())
+            if (it.isEmpty()) {
                 listSubmissionAdapter.setItemProcessing(it)
             }
         })

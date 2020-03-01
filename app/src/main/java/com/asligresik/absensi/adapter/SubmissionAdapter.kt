@@ -1,5 +1,6 @@
 package com.asligresik.absensi.adapters
 
+import android.util.Log
 import android.util.SparseIntArray
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +14,9 @@ import kotlinx.android.synthetic.main.item_submission.view.*
 class SubmissionAdapter : RecyclerView.Adapter<SubmissionAdapter.viewHolder>() {
     private var onItemClickCallback: OnItemClickCallback? = null
     private var listSubmission: List<Submission> = ArrayList<Submission>()
-    /* state 0 for rejected, 1 for approved, 2 for processing */
-    internal var processingItemState = HashMap<Int, Int>()
     var canApprove = false
     fun setDatas(listSubmission: List<Submission>) {
+
         this.listSubmission = listSubmission
         notifyDataSetChanged()
     }
@@ -26,8 +26,9 @@ class SubmissionAdapter : RecyclerView.Adapter<SubmissionAdapter.viewHolder>() {
     }
 
     fun setItemProcessing(itemProcessing: HashMap<Int, Int>){
-        processingItemState = itemProcessing
+        Log.e("setItemProcessing",itemProcessing.toString());
         itemProcessing.map<Int, Int, Unit> {
+            Log.e("setItemProcessing2",it.key.toString());
             listSubmission.get(it.key).status =
             when(it.value){
                 0 -> 'V'

@@ -5,16 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
-import com.asligresik.absensi.MainActivity
 import com.asligresik.absensi.R
-import com.asligresik.absensi.data.datasource.SubmissionDataSource
-import com.asligresik.absensi.data.repository.SubmissionRepository
-import com.asligresik.absensi.ui.submission.SubmissionPagerAdapter
-import com.asligresik.absensi.ui.submission.SubmissionViewModelFactory
-
 import kotlinx.android.synthetic.main.fragment_submission.*
 
 open class SubmissionFragment : Fragment() {

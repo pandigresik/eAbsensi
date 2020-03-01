@@ -12,7 +12,6 @@ import com.asligresik.absensi.MainActivity
 import com.asligresik.absensi.R
 import com.asligresik.absensi.adapters.SubmissionAdapter
 import com.asligresik.absensi.data.datasource.SubmissionDataSource
-import com.asligresik.absensi.data.model.Submission
 import com.asligresik.absensi.data.repository.SubmissionRepository
 import kotlinx.android.synthetic.main.fragment_recycleview.*
 
